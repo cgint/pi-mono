@@ -122,6 +122,6 @@ describe("Queued compaction during streaming", () => {
 		await promptPromise;
 		await expect(compactionPromise).resolves.toEqual(compactResult);
 		expect(compactSpy).toHaveBeenCalledTimes(1);
-		expect(compactSpy).toHaveBeenCalledWith("Please compact");
+		expect(compactSpy).toHaveBeenCalledWith("Please compact", "queued");
 	});
 });
