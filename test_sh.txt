@@ -1,0 +1,1883 @@
+Moved auth.json to backup
+Running tests without API keys...
+
+> pi-monorepo@0.0.3 test
+> npm run test --workspaces --if-present
+
+
+> @mariozechner/pi-agent-core@0.49.0 test
+> vitest --run
+
+
+ RUN  v3.2.4 /Users/cgint/dev-external/pi-mono/packages/agent
+
+
+ Test Files  4 failed (4)
+      Tests  no tests
+   Start at  20:24:56
+   Duration  214ms (transform 8ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 168ms)
+
+
+> @mariozechner/pi-ai@0.49.0 test
+> vitest --run
+
+
+ RUN  v3.2.4 /Users/cgint/dev-external/pi-mono/packages/ai
+
+ ✓ test/google-shared-gemini3-unsigned-tool-call.test.ts (1 test) 1ms
+ ✓ test/google-thinking-signature.test.ts (5 tests) 2ms
+ ✓ test/google-gemini-cli-session-id.test.ts (2 tests) 2ms
+ ✓ test/google-gemini-cli-retry-delay.test.ts (4 tests) 15ms
+ ✓ test/google-gemini-cli-claude-thinking-header.test.ts (2 tests) 11ms
+ ↓ test/image-limits.test.ts (48 tests | 48 skipped)
+stdout | test/bedrock-models.test.ts > Amazon Bedrock Models > should get all available Bedrock models
+Found 55 Bedrock models
+
+ ✓ test/bedrock-models.test.ts (1 test) 2ms
+ ↓ test/handoff.test.ts (5 tests | 5 skipped)
+ ↓ test/anthropic-tool-name-normalization.test.ts (4 tests | 4 skipped)
+ ↓ test/empty.test.ts (80 tests | 80 skipped)
+ ↓ test/abort.test.ts (21 tests | 21 skipped)
+ ↓ test/context-overflow.test.ts (27 tests | 27 skipped)
+ ↓ test/tokens.test.ts (20 tests | 20 skipped)
+ ↓ test/total-tokens.test.ts (25 tests | 25 skipped)
+ ✓ test/google-gemini-cli-empty-stream.test.ts (1 test) 513ms
+   ✓ google-gemini-cli empty stream retry > retries empty SSE responses without duplicate start  513ms
+ ↓ test/tool-call-without-result.test.ts (20 tests | 20 skipped)
+ ↓ test/unicode-surrogate.test.ts (60 tests | 60 skipped)
+ ↓ test/image-tool-result.test.ts (28 tests | 28 skipped)
+ ↓ test/zen.test.ts (27 tests | 27 skipped)
+ ↓ test/xhigh.test.ts (3 tests | 3 skipped)
+ ❯ test/stream.test.ts (141 tests | 6 failed | 135 skipped) 2846ms
+   ↓ Generate E2E Tests > Gemini Provider (gemini-2.5-flash) > should complete basic text generation
+   ↓ Generate E2E Tests > Gemini Provider (gemini-2.5-flash) > should handle tool calling
+   ↓ Generate E2E Tests > Gemini Provider (gemini-2.5-flash) > should handle streaming
+   ↓ Generate E2E Tests > Gemini Provider (gemini-2.5-flash) > should handle thinking
+   ↓ Generate E2E Tests > Gemini Provider (gemini-2.5-flash) > should handle multi-turn with thinking and tools
+   ↓ Generate E2E Tests > Gemini Provider (gemini-2.5-flash) > should handle image input
+   × Generate E2E Tests > Google Vertex Provider (gemini-3-flash-preview) > should complete basic text generation 676ms (retry x3)
+     → expected 0 to be greater than 0
+     → expected 0 to be greater than 0
+     → expected 0 to be greater than 0
+     → expected 0 to be greater than 0
+   × Generate E2E Tests > Google Vertex Provider (gemini-3-flash-preview) > should handle tool calling 445ms (retry x3)
+     → expected false to be true // Object.is equality
+     → expected false to be true // Object.is equality
+     → expected false to be true // Object.is equality
+     → expected false to be true // Object.is equality
+   × Generate E2E Tests > Google Vertex Provider (gemini-3-flash-preview) > should handle thinking 431ms (retry x3)
+     → Error: {"error":{"message":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Publisher Model `projects/gen-lang-client-0910640178/locations/europe-west1/publishers/google/models/gemini-3-flash-preview` not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n","code":404,"status":"Not Found"}}: expected 'error' to be 'stop' // Object.is equality
+     → Error: {"error":{"message":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Publisher Model `projects/gen-lang-client-0910640178/locations/europe-west1/publishers/google/models/gemini-3-flash-preview` not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n","code":404,"status":"Not Found"}}: expected 'error' to be 'stop' // Object.is equality
+     → Error: {"error":{"message":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Publisher Model `projects/gen-lang-client-0910640178/locations/europe-west1/publishers/google/models/gemini-3-flash-preview` not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n","code":404,"status":"Not Found"}}: expected 'error' to be 'stop' // Object.is equality
+     → Error: {"error":{"message":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Publisher Model `projects/gen-lang-client-0910640178/locations/europe-west1/publishers/google/models/gemini-3-flash-preview` not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n","code":404,"status":"Not Found"}}: expected 'error' to be 'stop' // Object.is equality
+   × Generate E2E Tests > Google Vertex Provider (gemini-3-flash-preview) > should handle streaming 460ms (retry x3)
+     → expected false to be true // Object.is equality
+     → expected false to be true // Object.is equality
+     → expected false to be true // Object.is equality
+     → expected false to be true // Object.is equality
+   × Generate E2E Tests > Google Vertex Provider (gemini-3-flash-preview) > should handle multi-turn with thinking and tools 402ms (retry x3)
+     → Error: {"error":{"message":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Publisher Model `projects/gen-lang-client-0910640178/locations/europe-west1/publishers/google/models/gemini-3-flash-preview` not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n","code":404,"status":"Not Found"}}: expected 'error' not to be 'error' // Object.is equality
+     → Error: {"error":{"message":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Publisher Model `projects/gen-lang-client-0910640178/locations/europe-west1/publishers/google/models/gemini-3-flash-preview` not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n","code":404,"status":"Not Found"}}: expected 'error' not to be 'error' // Object.is equality
+     → Error: {"error":{"message":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Publisher Model `projects/gen-lang-client-0910640178/locations/europe-west1/publishers/google/models/gemini-3-flash-preview` not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n","code":404,"status":"Not Found"}}: expected 'error' not to be 'error' // Object.is equality
+     → Error: {"error":{"message":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Publisher Model `projects/gen-lang-client-0910640178/locations/europe-west1/publishers/google/models/gemini-3-flash-preview` not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n","code":404,"status":"Not Found"}}: expected 'error' not to be 'error' // Object.is equality
+   × Generate E2E Tests > Google Vertex Provider (gemini-3-flash-preview) > should handle image input 431ms (retry x3)
+     → expected false to be truthy
+     → expected false to be truthy
+     → expected false to be truthy
+     → expected false to be truthy
+   ↓ Generate E2E Tests > OpenAI Completions Provider (gpt-4o-mini) > should complete basic text generation
+   ↓ Generate E2E Tests > OpenAI Completions Provider (gpt-4o-mini) > should handle tool calling
+   ↓ Generate E2E Tests > OpenAI Completions Provider (gpt-4o-mini) > should handle streaming
+   ↓ Generate E2E Tests > OpenAI Completions Provider (gpt-4o-mini) > should handle image input
+   ↓ Generate E2E Tests > OpenAI Responses Provider (gpt-5-mini) > should complete basic text generation
+   ↓ Generate E2E Tests > OpenAI Responses Provider (gpt-5-mini) > should handle tool calling
+   ↓ Generate E2E Tests > OpenAI Responses Provider (gpt-5-mini) > should handle streaming
+   ↓ Generate E2E Tests > OpenAI Responses Provider (gpt-5-mini) > should handle thinking
+   ↓ Generate E2E Tests > OpenAI Responses Provider (gpt-5-mini) > should handle multi-turn with thinking and tools
+   ↓ Generate E2E Tests > OpenAI Responses Provider (gpt-5-mini) > should handle image input
+   ↓ Generate E2E Tests > Anthropic Provider (claude-3-5-haiku-20241022) > should complete basic text generation
+   ↓ Generate E2E Tests > Anthropic Provider (claude-3-5-haiku-20241022) > should handle tool calling
+   ↓ Generate E2E Tests > Anthropic Provider (claude-3-5-haiku-20241022) > should handle streaming
+   ↓ Generate E2E Tests > Anthropic Provider (claude-3-5-haiku-20241022) > should handle image input
+   ↓ Generate E2E Tests > OpenAI Responses Provider (gpt-5-mini) > should complete basic text generation
+   ↓ Generate E2E Tests > OpenAI Responses Provider (gpt-5-mini) > should handle tool calling
+   ↓ Generate E2E Tests > OpenAI Responses Provider (gpt-5-mini) > should handle streaming
+   ↓ Generate E2E Tests > OpenAI Responses Provider (gpt-5-mini) > should handle image input
+   ↓ Generate E2E Tests > xAI Provider (grok-code-fast-1 via OpenAI Completions) > should complete basic text generation
+   ↓ Generate E2E Tests > xAI Provider (grok-code-fast-1 via OpenAI Completions) > should handle tool calling
+   ↓ Generate E2E Tests > xAI Provider (grok-code-fast-1 via OpenAI Completions) > should handle streaming
+   ↓ Generate E2E Tests > xAI Provider (grok-code-fast-1 via OpenAI Completions) > should handle thinking mode
+   ↓ Generate E2E Tests > xAI Provider (grok-code-fast-1 via OpenAI Completions) > should handle multi-turn with thinking and tools
+   ↓ Generate E2E Tests > Groq Provider (gpt-oss-20b via OpenAI Completions) > should complete basic text generation
+   ↓ Generate E2E Tests > Groq Provider (gpt-oss-20b via OpenAI Completions) > should handle tool calling
+   ↓ Generate E2E Tests > Groq Provider (gpt-oss-20b via OpenAI Completions) > should handle streaming
+   ↓ Generate E2E Tests > Groq Provider (gpt-oss-20b via OpenAI Completions) > should handle thinking mode
+   ↓ Generate E2E Tests > Groq Provider (gpt-oss-20b via OpenAI Completions) > should handle multi-turn with thinking and tools
+   ↓ Generate E2E Tests > Cerebras Provider (gpt-oss-120b via OpenAI Completions) > should complete basic text generation
+   ↓ Generate E2E Tests > Cerebras Provider (gpt-oss-120b via OpenAI Completions) > should handle tool calling
+   ↓ Generate E2E Tests > Cerebras Provider (gpt-oss-120b via OpenAI Completions) > should handle streaming
+   ↓ Generate E2E Tests > Cerebras Provider (gpt-oss-120b via OpenAI Completions) > should handle thinking mode
+   ↓ Generate E2E Tests > Cerebras Provider (gpt-oss-120b via OpenAI Completions) > should handle multi-turn with thinking and tools
+   ↓ Generate E2E Tests > OpenRouter Provider (glm-4.5v via OpenAI Completions) > should complete basic text generation
+   ↓ Generate E2E Tests > OpenRouter Provider (glm-4.5v via OpenAI Completions) > should handle tool calling
+   ↓ Generate E2E Tests > OpenRouter Provider (glm-4.5v via OpenAI Completions) > should handle streaming
+   ↓ Generate E2E Tests > OpenRouter Provider (glm-4.5v via OpenAI Completions) > should handle thinking mode
+   ↓ Generate E2E Tests > OpenRouter Provider (glm-4.5v via OpenAI Completions) > should handle multi-turn with thinking and tools
+   ↓ Generate E2E Tests > OpenRouter Provider (glm-4.5v via OpenAI Completions) > should handle image input
+   ↓ Generate E2E Tests > Vercel AI Gateway Provider (google/gemini-2.5-flash via Anthropic Messages) > should complete basic text generation
+   ↓ Generate E2E Tests > Vercel AI Gateway Provider (google/gemini-2.5-flash via Anthropic Messages) > should handle tool calling
+   ↓ Generate E2E Tests > Vercel AI Gateway Provider (google/gemini-2.5-flash via Anthropic Messages) > should handle streaming
+   ↓ Generate E2E Tests > Vercel AI Gateway Provider (google/gemini-2.5-flash via Anthropic Messages) > should handle image input
+   ↓ Generate E2E Tests > Vercel AI Gateway Provider (google/gemini-2.5-flash via Anthropic Messages) > should handle multi-turn with tools
+   ↓ Generate E2E Tests > Vercel AI Gateway Provider (anthropic/claude-opus-4.5 via Anthropic Messages) > should complete basic text generation
+   ↓ Generate E2E Tests > Vercel AI Gateway Provider (anthropic/claude-opus-4.5 via Anthropic Messages) > should handle tool calling
+   ↓ Generate E2E Tests > Vercel AI Gateway Provider (anthropic/claude-opus-4.5 via Anthropic Messages) > should handle streaming
+   ↓ Generate E2E Tests > Vercel AI Gateway Provider (anthropic/claude-opus-4.5 via Anthropic Messages) > should handle image input
+   ↓ Generate E2E Tests > Vercel AI Gateway Provider (anthropic/claude-opus-4.5 via Anthropic Messages) > should handle multi-turn with tools
+   ↓ Generate E2E Tests > Vercel AI Gateway Provider (openai/gpt-5.1-codex-max via Anthropic Messages) > should complete basic text generation
+   ↓ Generate E2E Tests > Vercel AI Gateway Provider (openai/gpt-5.1-codex-max via Anthropic Messages) > should handle tool calling
+   ↓ Generate E2E Tests > Vercel AI Gateway Provider (openai/gpt-5.1-codex-max via Anthropic Messages) > should handle streaming
+   ↓ Generate E2E Tests > Vercel AI Gateway Provider (openai/gpt-5.1-codex-max via Anthropic Messages) > should handle image input
+   ↓ Generate E2E Tests > Vercel AI Gateway Provider (openai/gpt-5.1-codex-max via Anthropic Messages) > should handle multi-turn with tools
+   ↓ Generate E2E Tests > zAI Provider (glm-4.5-air via OpenAI Completions) > should complete basic text generation
+   ↓ Generate E2E Tests > zAI Provider (glm-4.5-air via OpenAI Completions) > should handle tool calling
+   ↓ Generate E2E Tests > zAI Provider (glm-4.5-air via OpenAI Completions) > should handle streaming
+   ↓ Generate E2E Tests > zAI Provider (glm-4.5-air via OpenAI Completions) > should handle thinking mode
+   ↓ Generate E2E Tests > zAI Provider (glm-4.5-air via OpenAI Completions) > should handle multi-turn with thinking and tools
+   ↓ Generate E2E Tests > zAI Provider (glm-4.5v via OpenAI Completions) > should complete basic text generation
+   ↓ Generate E2E Tests > zAI Provider (glm-4.5v via OpenAI Completions) > should handle tool calling
+   ↓ Generate E2E Tests > zAI Provider (glm-4.5v via OpenAI Completions) > should handle streaming
+   ↓ Generate E2E Tests > zAI Provider (glm-4.5v via OpenAI Completions) > should handle thinking mode
+   ↓ Generate E2E Tests > zAI Provider (glm-4.5v via OpenAI Completions) > should handle multi-turn with thinking and tools
+   ↓ Generate E2E Tests > zAI Provider (glm-4.5v via OpenAI Completions) > should handle image input
+   ↓ Generate E2E Tests > Mistral Provider (devstral-medium-latest via OpenAI Completions) > should complete basic text generation
+   ↓ Generate E2E Tests > Mistral Provider (devstral-medium-latest via OpenAI Completions) > should handle tool calling
+   ↓ Generate E2E Tests > Mistral Provider (devstral-medium-latest via OpenAI Completions) > should handle streaming
+   ↓ Generate E2E Tests > Mistral Provider (devstral-medium-latest via OpenAI Completions) > should handle thinking mode
+   ↓ Generate E2E Tests > Mistral Provider (devstral-medium-latest via OpenAI Completions) > should handle multi-turn with thinking and tools
+   ↓ Generate E2E Tests > Mistral Provider (pixtral-12b with image support) > should complete basic text generation
+   ↓ Generate E2E Tests > Mistral Provider (pixtral-12b with image support) > should handle tool calling
+   ↓ Generate E2E Tests > Mistral Provider (pixtral-12b with image support) > should handle streaming
+   ↓ Generate E2E Tests > Mistral Provider (pixtral-12b with image support) > should handle image input
+   ↓ Generate E2E Tests > MiniMax Provider (MiniMax-M2.1 via Anthropic Messages) > should complete basic text generation
+   ↓ Generate E2E Tests > MiniMax Provider (MiniMax-M2.1 via Anthropic Messages) > should handle tool calling
+   ↓ Generate E2E Tests > MiniMax Provider (MiniMax-M2.1 via Anthropic Messages) > should handle streaming
+   ↓ Generate E2E Tests > MiniMax Provider (MiniMax-M2.1 via Anthropic Messages) > should handle thinking mode
+   ↓ Generate E2E Tests > MiniMax Provider (MiniMax-M2.1 via Anthropic Messages) > should handle multi-turn with thinking and tools
+   ↓ Generate E2E Tests > Anthropic OAuth Provider (claude-sonnet-4-20250514) > should complete basic text generation
+   ↓ Generate E2E Tests > Anthropic OAuth Provider (claude-sonnet-4-20250514) > should handle tool calling
+   ↓ Generate E2E Tests > Anthropic OAuth Provider (claude-sonnet-4-20250514) > should handle streaming
+   ↓ Generate E2E Tests > Anthropic OAuth Provider (claude-sonnet-4-20250514) > should handle thinking
+   ↓ Generate E2E Tests > Anthropic OAuth Provider (claude-sonnet-4-20250514) > should handle multi-turn with thinking and tools
+   ↓ Generate E2E Tests > Anthropic OAuth Provider (claude-sonnet-4-20250514) > should handle image input
+   ↓ Generate E2E Tests > GitHub Copilot Provider (gpt-4o via OpenAI Completions) > should complete basic text generation
+   ↓ Generate E2E Tests > GitHub Copilot Provider (gpt-4o via OpenAI Completions) > should handle tool calling
+   ↓ Generate E2E Tests > GitHub Copilot Provider (gpt-4o via OpenAI Completions) > should handle streaming
+   ↓ Generate E2E Tests > GitHub Copilot Provider (gpt-4o via OpenAI Completions) > should handle thinking
+   ↓ Generate E2E Tests > GitHub Copilot Provider (gpt-4o via OpenAI Completions) > should handle multi-turn with thinking and tools
+   ↓ Generate E2E Tests > GitHub Copilot Provider (gpt-4o via OpenAI Completions) > should handle image input
+   ↓ Generate E2E Tests > Google Gemini CLI Provider (gemini-2.5-flash) > should complete basic text generation
+   ↓ Generate E2E Tests > Google Gemini CLI Provider (gemini-2.5-flash) > should handle tool calling
+   ↓ Generate E2E Tests > Google Gemini CLI Provider (gemini-2.5-flash) > should handle streaming
+   ↓ Generate E2E Tests > Google Gemini CLI Provider (gemini-2.5-flash) > should handle thinking
+   ↓ Generate E2E Tests > Google Gemini CLI Provider (gemini-2.5-flash) > should handle multi-turn with thinking and tools
+   ↓ Generate E2E Tests > Google Gemini CLI Provider (gemini-2.5-flash) > should handle image input
+   ↓ Generate E2E Tests > Google Gemini CLI Provider (gemini-3-flash-preview with thinkingLevel) > should handle thinking with thinkingLevel
+   ↓ Generate E2E Tests > Google Gemini CLI Provider (gemini-3-flash-preview with thinkingLevel) > should handle multi-turn with thinking and tools
+   ↓ Generate E2E Tests > Google Antigravity Provider (gemini-3-flash) > should complete basic text generation
+   ↓ Generate E2E Tests > Google Antigravity Provider (gemini-3-flash) > should handle tool calling
+   ↓ Generate E2E Tests > Google Antigravity Provider (gemini-3-flash) > should handle streaming
+   ↓ Generate E2E Tests > Google Antigravity Provider (gemini-3-flash) > should handle thinking with thinkingLevel
+   ↓ Generate E2E Tests > Google Antigravity Provider (gemini-3-flash) > should handle multi-turn with thinking and tools
+   ↓ Generate E2E Tests > Google Antigravity Provider (gemini-3-flash) > should handle image input
+   ↓ Generate E2E Tests > Google Antigravity Provider (gemini-3-pro-high with thinkingLevel) > should handle thinking with thinkingLevel HIGH
+   ↓ Generate E2E Tests > Google Antigravity Provider (claude-sonnet-4-5) > should complete basic text generation
+   ↓ Generate E2E Tests > Google Antigravity Provider (claude-sonnet-4-5) > should handle tool calling
+   ↓ Generate E2E Tests > Google Antigravity Provider (claude-sonnet-4-5) > should handle streaming
+   ↓ Generate E2E Tests > Google Antigravity Provider (claude-sonnet-4-5) > should handle thinking
+   ↓ Generate E2E Tests > Google Antigravity Provider (claude-sonnet-4-5) > should handle multi-turn with thinking and tools
+   ↓ Generate E2E Tests > Google Antigravity Provider (claude-sonnet-4-5) > should handle image input
+   ↓ Generate E2E Tests > OpenAI Codex Provider (gpt-5.2-codex) > should complete basic text generation
+   ↓ Generate E2E Tests > OpenAI Codex Provider (gpt-5.2-codex) > should handle tool calling
+   ↓ Generate E2E Tests > OpenAI Codex Provider (gpt-5.2-codex) > should handle streaming
+   ↓ Generate E2E Tests > OpenAI Codex Provider (gpt-5.2-codex) > should handle thinking
+   ↓ Generate E2E Tests > OpenAI Codex Provider (gpt-5.2-codex) > should handle multi-turn with thinking and tools
+   ↓ Generate E2E Tests > OpenAI Codex Provider (gpt-5.2-codex) > should handle image input
+   ↓ Generate E2E Tests > Amazon Bedrock Provider (claude-sonnet-4-5) > should complete basic text generation
+   ↓ Generate E2E Tests > Amazon Bedrock Provider (claude-sonnet-4-5) > should handle tool calling
+   ↓ Generate E2E Tests > Amazon Bedrock Provider (claude-sonnet-4-5) > should handle streaming
+   ↓ Generate E2E Tests > Amazon Bedrock Provider (claude-sonnet-4-5) > should handle thinking
+   ↓ Generate E2E Tests > Amazon Bedrock Provider (claude-sonnet-4-5) > should handle multi-turn with thinking and tools
+   ↓ Generate E2E Tests > Amazon Bedrock Provider (claude-sonnet-4-5) > should handle image input
+   ↓ Generate E2E Tests > Ollama Provider (gpt-oss-20b via OpenAI Completions) > should complete basic text generation
+   ↓ Generate E2E Tests > Ollama Provider (gpt-oss-20b via OpenAI Completions) > should handle tool calling
+   ↓ Generate E2E Tests > Ollama Provider (gpt-oss-20b via OpenAI Completions) > should handle streaming
+   ↓ Generate E2E Tests > Ollama Provider (gpt-oss-20b via OpenAI Completions) > should handle thinking mode
+   ↓ Generate E2E Tests > Ollama Provider (gpt-oss-20b via OpenAI Completions) > should handle multi-turn with thinking and tools
+ ✓ test/openai-codex-stream.test.ts (3 tests) 7019ms
+   ✓ openai-codex streaming > sets conversation_id/session_id headers and prompt_cache_key when sessionId is provided  7005ms
+
+ Test Files  1 failed | 8 passed | 13 skipped (22)
+      Tests  6 failed | 19 passed | 503 skipped (528)
+   Start at  20:24:56
+   Duration  7.80s (transform 1.09s, setup 0ms, collect 8.98s, tests 10.41s, environment 2ms, prepare 2.00s)
+
+
+> @mariozechner/pi-coding-agent@0.49.0 test
+> vitest --run
+
+
+ RUN  v3.2.4 /Users/cgint/dev-external/pi-mono/packages/coding-agent
+
+ ✓ test/plan-mode-utils.test.ts (33 tests) 10ms
+ ✓ test/clipboard-image.test.ts (4 tests) 33ms
+ ✓ test/session-manager/file-operations.test.ts (13 tests) 38ms
+ ✓ test/settings-manager.test.ts (6 tests) 26ms
+ ✓ test/image-processing.test.ts (8 tests) 74ms
+ ✓ test/session-manager/labels.test.ts (8 tests) 4ms
+ ✓ test/session-manager/build-context.test.ts (14 tests) 4ms
+ ✓ test/session-manager/save-entry.test.ts (1 test) 3ms
+ ✓ test/compaction-extensions-example.test.ts (2 tests) 2ms
+ ✓ test/session-manager/migration.test.ts (2 tests) 2ms
+ ↓ test/rpc.test.ts (13 tests | 13 skipped)
+ ✓ test/block-images.test.ts (8 tests) 30ms
+ ✓ test/args.test.ts (36 tests) 5ms
+ ✓ test/tools.test.ts (42 tests) 1107ms
+   ✓ Coding Agent Tools > bash tool > should respect timeout  1005ms
+
+ Test Files  22 failed | 13 passed | 1 skipped (36)
+      Tests  177 passed | 13 skipped (190)
+   Start at  20:25:04
+   Duration  1.86s (transform 796ms, setup 0ms, collect 1.42s, tests 1.34s, environment 4ms, prepare 2.34s)
+
+
+> @mariozechner/pi-tui@0.49.0 test
+> node --test --import tsx test/*.test.ts
+
+TAP version 13
+# Result: null
+# Result: null
+# Result: {
+#   items: [
+#     { value: '/.nofollow/', label: '.nofollow/' },
+#     { value: '/.resolve/', label: '.resolve/' },
+#     { value: '/.vol/', label: '.vol/' },
+#     { value: '/Applications/', label: 'Applications/' },
+#     { value: '/bin/', label: 'bin/' },
+#     { value: '/cores/', label: 'cores/' },
+#     { value: '/dev/', label: 'dev/' },
+#     { value: '/etc/', label: 'etc/' },
+#     { value: '/home/', label: 'home/' },
+#     { value: '/Library/', label: 'Library/' },
+#     { value: '/opt/', label: 'opt/' },
+#     { value: '/private/', label: 'private/' },
+#     { value: '/sbin/', label: 'sbin/' },
+#     { value: '/System/', label: 'System/' },
+#     { value: '/tmp/', label: 'tmp/' },
+#     { value: '/Users/', label: 'Users/' },
+#     { value: '/usr/', label: 'usr/' },
+#     { value: '/var/', label: 'var/' },
+#     { value: '/Volumes/', label: 'Volumes/' },
+#     { value: '/.file', label: '.file' },
+#     { value: '/.VolumeIcon.icns', label: '.VolumeIcon.icns' }
+#   ],
+#   prefix: '/'
+# }
+# Subtest: CombinedAutocompleteProvider
+    # Subtest: extractPathPrefix
+        # Subtest: extracts / from 'hey /' when forced
+        ok 1 - extracts / from 'hey /' when forced
+          ---
+          duration_ms: 7.552417
+          ...
+        # Subtest: extracts /A from '/A' when forced
+        ok 2 - extracts /A from '/A' when forced
+          ---
+          duration_ms: 0.539167
+          ...
+        # Subtest: does not trigger for slash commands
+        ok 3 - does not trigger for slash commands
+          ---
+          duration_ms: 0.082958
+          ...
+        # Subtest: triggers for absolute paths after slash command argument
+        ok 4 - triggers for absolute paths after slash command argument
+          ---
+          duration_ms: 1.148041
+          ...
+        1..4
+    ok 1 - extractPathPrefix
+      ---
+      duration_ms: 9.729083
+      type: 'suite'
+      ...
+    1..1
+ok 1 - CombinedAutocompleteProvider
+  ---
+  duration_ms: 9.925416
+  type: 'suite'
+  ...
+# Subtest: Editor component
+    # Subtest: Prompt history navigation
+        # Subtest: does nothing on Up arrow when history is empty
+        ok 1 - does nothing on Up arrow when history is empty
+          ---
+          duration_ms: 3.759
+          ...
+        # Subtest: shows most recent history entry on Up arrow when editor is empty
+        ok 2 - shows most recent history entry on Up arrow when editor is empty
+          ---
+          duration_ms: 1.405583
+          ...
+        # Subtest: cycles through history entries on repeated Up arrow
+        ok 3 - cycles through history entries on repeated Up arrow
+          ---
+          duration_ms: 0.85175
+          ...
+        # Subtest: returns to empty editor on Down arrow after browsing history
+        ok 4 - returns to empty editor on Down arrow after browsing history
+          ---
+          duration_ms: 0.797583
+          ...
+        # Subtest: navigates forward through history with Down arrow
+        ok 5 - navigates forward through history with Down arrow
+          ---
+          duration_ms: 0.585959
+          ...
+        # Subtest: exits history mode when typing a character
+        ok 6 - exits history mode when typing a character
+          ---
+          duration_ms: 0.554208
+          ...
+        # Subtest: exits history mode on setText
+        ok 7 - exits history mode on setText
+          ---
+          duration_ms: 0.335125
+          ...
+        # Subtest: does not add empty strings to history
+        ok 8 - does not add empty strings to history
+          ---
+          duration_ms: 0.397583
+          ...
+        # Subtest: does not add consecutive duplicates to history
+        ok 9 - does not add consecutive duplicates to history
+          ---
+          duration_ms: 0.872875
+          ...
+        # Subtest: allows non-consecutive duplicates in history
+        ok 10 - allows non-consecutive duplicates in history
+          ---
+          duration_ms: 0.517709
+          ...
+        # Subtest: uses cursor movement instead of history when editor has content
+        ok 11 - uses cursor movement instead of history when editor has content
+          ---
+          duration_ms: 0.467833
+          ...
+        # Subtest: limits history to 100 entries
+        ok 12 - limits history to 100 entries
+          ---
+          duration_ms: 2.521834
+          ...
+        # Subtest: allows cursor movement within multi-line history entry with Down
+        ok 13 - allows cursor movement within multi-line history entry with Down
+          ---
+          duration_ms: 0.336875
+          ...
+        # Subtest: allows cursor movement within multi-line history entry with Up
+        ok 14 - allows cursor movement within multi-line history entry with Up
+          ---
+          duration_ms: 0.279958
+          ...
+        # Subtest: navigates from multi-line entry back to newer via Down after cursor movement
+        ok 15 - navigates from multi-line entry back to newer via Down after cursor movement
+          ---
+          duration_ms: 0.268125
+          ...
+        1..15
+    ok 1 - Prompt history navigation
+      ---
+      duration_ms: 14.735834
+      type: 'suite'
+      ...
+    # Subtest: public state accessors
+        # Subtest: returns cursor position
+        ok 1 - returns cursor position
+          ---
+          duration_ms: 0.570291
+          ...
+        # Subtest: returns lines as a defensive copy
+        ok 2 - returns lines as a defensive copy
+          ---
+          duration_ms: 0.1935
+          ...
+        1..2
+    ok 2 - public state accessors
+      ---
+      duration_ms: 0.830959
+      type: 'suite'
+      ...
+    # Subtest: Shift+Enter handling
+        # Subtest: treats split VS Code Shift+Enter as a newline
+        ok 1 - treats split VS Code Shift+Enter as a newline
+          ---
+          duration_ms: 0.317875
+          ...
+        # Subtest: inserts a literal backslash when not followed by Enter
+        ok 2 - inserts a literal backslash when not followed by Enter
+          ---
+          duration_ms: 0.582916
+          ...
+        1..2
+    ok 3 - Shift+Enter handling
+      ---
+      duration_ms: 1.498458
+      type: 'suite'
+      ...
+    # Subtest: Unicode text editing behavior
+        # Subtest: inserts mixed ASCII, umlauts, and emojis as literal text
+        ok 1 - inserts mixed ASCII, umlauts, and emojis as literal text
+          ---
+          duration_ms: 0.883875
+          ...
+        # Subtest: deletes single-code-unit unicode characters (umlauts) with Backspace
+        ok 2 - deletes single-code-unit unicode characters (umlauts) with Backspace
+          ---
+          duration_ms: 1.385958
+          ...
+        # Subtest: deletes multi-code-unit emojis with single Backspace
+        ok 3 - deletes multi-code-unit emojis with single Backspace
+          ---
+          duration_ms: 0.270333
+          ...
+        # Subtest: inserts characters at the correct position after cursor movement over umlauts
+        ok 4 - inserts characters at the correct position after cursor movement over umlauts
+          ---
+          duration_ms: 0.233708
+          ...
+        # Subtest: moves cursor across multi-code-unit emojis with single arrow key
+        ok 5 - moves cursor across multi-code-unit emojis with single arrow key
+          ---
+          duration_ms: 0.219541
+          ...
+        # Subtest: preserves umlauts across line breaks
+        ok 6 - preserves umlauts across line breaks
+          ---
+          duration_ms: 0.219709
+          ...
+        # Subtest: replaces the entire document with unicode text via setText (paste simulation)
+        ok 7 - replaces the entire document with unicode text via setText (paste simulation)
+          ---
+          duration_ms: 0.134166
+          ...
+        # Subtest: moves cursor to document start on Ctrl+A and inserts at the beginning
+        ok 8 - moves cursor to document start on Ctrl+A and inserts at the beginning
+          ---
+          duration_ms: 0.169958
+          ...
+        # Subtest: deletes words correctly with Ctrl+W and Alt+Backspace
+        ok 9 - deletes words correctly with Ctrl+W and Alt+Backspace
+          ---
+          duration_ms: 0.441041
+          ...
+        # Subtest: navigates words correctly with Ctrl+Left/Right
+        ok 10 - navigates words correctly with Ctrl+Left/Right
+          ---
+          duration_ms: 0.383208
+          ...
+        1..10
+    ok 4 - Unicode text editing behavior
+      ---
+      duration_ms: 4.482125
+      type: 'suite'
+      ...
+    # Subtest: Grapheme-aware text wrapping
+        # Subtest: wraps lines correctly when text contains wide emojis
+        ok 1 - wraps lines correctly when text contains wide emojis
+          ---
+          duration_ms: 13.912917
+          ...
+        # Subtest: wraps long text with emojis at correct positions
+        ok 2 - wraps long text with emojis at correct positions
+          ---
+          duration_ms: 0.599875
+          ...
+        # Subtest: wraps CJK characters correctly (each is 2 columns wide)
+        ok 3 - wraps CJK characters correctly (each is 2 columns wide)
+          ---
+          duration_ms: 0.591375
+          ...
+        # Subtest: handles mixed ASCII and wide characters in wrapping
+        ok 4 - handles mixed ASCII and wide characters in wrapping
+          ---
+          duration_ms: 0.240042
+          ...
+        # Subtest: renders cursor correctly on wide characters
+        ok 5 - renders cursor correctly on wide characters
+          ---
+          duration_ms: 0.219584
+          ...
+        # Subtest: does not exceed terminal width with emoji at wrap boundary
+        ok 6 - does not exceed terminal width with emoji at wrap boundary
+          ---
+          duration_ms: 0.195166
+          ...
+        1..6
+    ok 5 - Grapheme-aware text wrapping
+      ---
+      duration_ms: 15.886542
+      type: 'suite'
+      ...
+    # Subtest: Word wrapping
+        # Subtest: wraps at word boundaries instead of mid-word
+        ok 1 - wraps at word boundaries instead of mid-word
+          ---
+          duration_ms: 0.425959
+          ...
+        # Subtest: does not start lines with leading whitespace after word wrap
+        ok 2 - does not start lines with leading whitespace after word wrap
+          ---
+          duration_ms: 0.205292
+          ...
+        # Subtest: breaks long words (URLs) at character level
+        ok 3 - breaks long words (URLs) at character level
+          ---
+          duration_ms: 0.285083
+          ...
+        # Subtest: preserves multiple spaces within words on same line
+        ok 4 - preserves multiple spaces within words on same line
+          ---
+          duration_ms: 0.1765
+          ...
+        # Subtest: handles empty string
+        ok 5 - handles empty string
+          ---
+          duration_ms: 0.144042
+          ...
+        # Subtest: handles single word that fits exactly
+        ok 6 - handles single word that fits exactly
+          ---
+          duration_ms: 0.16
+          ...
+        1..6
+    ok 6 - Word wrapping
+      ---
+      duration_ms: 1.456792
+      type: 'suite'
+      ...
+    # Subtest: Kill ring
+        # Subtest: Ctrl+W saves deleted text to kill ring and Ctrl+Y yanks it
+        ok 1 - Ctrl+W saves deleted text to kill ring and Ctrl+Y yanks it
+          ---
+          duration_ms: 0.29625
+          ...
+        # Subtest: Ctrl+U saves deleted text to kill ring
+        ok 2 - Ctrl+U saves deleted text to kill ring
+          ---
+          duration_ms: 0.320334
+          ...
+        # Subtest: Ctrl+K saves deleted text to kill ring
+        ok 3 - Ctrl+K saves deleted text to kill ring
+          ---
+          duration_ms: 0.197875
+          ...
+        # Subtest: Ctrl+Y does nothing when kill ring is empty
+        ok 4 - Ctrl+Y does nothing when kill ring is empty
+          ---
+          duration_ms: 0.152375
+          ...
+        # Subtest: Alt+Y cycles through kill ring after Ctrl+Y
+        ok 5 - Alt+Y cycles through kill ring after Ctrl+Y
+          ---
+          duration_ms: 0.303792
+          ...
+        # Subtest: Alt+Y does nothing if not preceded by yank
+        ok 6 - Alt+Y does nothing if not preceded by yank
+          ---
+          duration_ms: 0.31975
+          ...
+        # Subtest: Alt+Y does nothing if kill ring has ≤1 entry
+        ok 7 - Alt+Y does nothing if kill ring has ≤1 entry
+          ---
+          duration_ms: 0.298084
+          ...
+        # Subtest: consecutive Ctrl+W accumulates into one kill ring entry
+        ok 8 - consecutive Ctrl+W accumulates into one kill ring entry
+          ---
+          duration_ms: 0.363875
+          ...
+        # Subtest: Ctrl+U accumulates multiline deletes including newlines
+        ok 9 - Ctrl+U accumulates multiline deletes including newlines
+          ---
+          duration_ms: 0.22
+          ...
+        # Subtest: backward deletions prepend, forward deletions append during accumulation
+        ok 10 - backward deletions prepend, forward deletions append during accumulation
+          ---
+          duration_ms: 0.299459
+          ...
+        # Subtest: non-delete actions break kill accumulation
+        ok 11 - non-delete actions break kill accumulation
+          ---
+          duration_ms: 1.373167
+          ...
+        # Subtest: non-yank actions break Alt+Y chain
+        ok 12 - non-yank actions break Alt+Y chain
+          ---
+          duration_ms: 0.311917
+          ...
+        # Subtest: kill ring rotation persists after cycling
+        ok 13 - kill ring rotation persists after cycling
+          ---
+          duration_ms: 0.359875
+          ...
+        # Subtest: consecutive deletions across lines coalesce into one entry
+        ok 14 - consecutive deletions across lines coalesce into one entry
+          ---
+          duration_ms: 0.233791
+          ...
+        # Subtest: Ctrl+K at line end deletes newline and coalesces
+        ok 15 - Ctrl+K at line end deletes newline and coalesces
+          ---
+          duration_ms: 0.270208
+          ...
+        # Subtest: handles yank in middle of text
+        ok 16 - handles yank in middle of text
+          ---
+          duration_ms: 0.325584
+          ...
+        # Subtest: handles yank-pop in middle of text
+        ok 17 - handles yank-pop in middle of text
+          ---
+          duration_ms: 0.275958
+          ...
+        # Subtest: multiline yank and yank-pop in middle of text
+        ok 18 - multiline yank and yank-pop in middle of text
+          ---
+          duration_ms: 0.270625
+          ...
+        # Subtest: Alt+D deletes word forward and saves to kill ring
+        ok 19 - Alt+D deletes word forward and saves to kill ring
+          ---
+          duration_ms: 0.276417
+          ...
+        # Subtest: Alt+D at end of line deletes newline
+        ok 20 - Alt+D at end of line deletes newline
+          ---
+          duration_ms: 0.177209
+          ...
+        1..20
+    ok 7 - Kill ring
+      ---
+      duration_ms: 6.866333
+      type: 'suite'
+      ...
+    1..7
+ok 2 - Editor component
+  ---
+  duration_ms: 46.115125
+  type: 'suite'
+  ...
+# Subtest: fuzzyMatch
+    # Subtest: empty query matches everything with score 0
+    ok 1 - empty query matches everything with score 0
+      ---
+      duration_ms: 0.390291
+      ...
+    # Subtest: query longer than text does not match
+    ok 2 - query longer than text does not match
+      ---
+      duration_ms: 0.176958
+      ...
+    # Subtest: exact match has good score
+    ok 3 - exact match has good score
+      ---
+      duration_ms: 0.70675
+      ...
+    # Subtest: characters must appear in order
+    ok 4 - characters must appear in order
+      ---
+      duration_ms: 0.171125
+      ...
+    # Subtest: case insensitive matching
+    ok 5 - case insensitive matching
+      ---
+      duration_ms: 1.421209
+      ...
+    # Subtest: consecutive matches score better than scattered matches
+    ok 6 - consecutive matches score better than scattered matches
+      ---
+      duration_ms: 0.162125
+      ...
+    # Subtest: word boundary matches score better
+    ok 7 - word boundary matches score better
+      ---
+      duration_ms: 0.1225
+      ...
+    1..7
+ok 3 - fuzzyMatch
+  ---
+  duration_ms: 4.886792
+  type: 'suite'
+  ...
+# Subtest: fuzzyFilter
+    # Subtest: empty query returns all items unchanged
+    ok 1 - empty query returns all items unchanged
+      ---
+      duration_ms: 0.437416
+      ...
+    # Subtest: filters out non-matching items
+    ok 2 - filters out non-matching items
+      ---
+      duration_ms: 0.196958
+      ...
+    # Subtest: sorts results by match quality
+    ok 3 - sorts results by match quality
+      ---
+      duration_ms: 0.15475
+      ...
+    # Subtest: works with custom getText function
+    ok 4 - works with custom getText function
+      ---
+      duration_ms: 0.077292
+      ...
+    1..4
+ok 4 - fuzzyFilter
+  ---
+  duration_ms: 1.005041
+  type: 'suite'
+  ...
+# Subtest: Input component
+    # Subtest: treats split VS Code Shift+Enter as submit
+    ok 1 - treats split VS Code Shift+Enter as submit
+      ---
+      duration_ms: 0.386292
+      ...
+    # Subtest: inserts a literal backslash when not followed by Enter
+    ok 2 - inserts a literal backslash when not followed by Enter
+      ---
+      duration_ms: 0.607625
+      ...
+    1..2
+ok 5 - Input component
+  ---
+  duration_ms: 1.397541
+  type: 'suite'
+  ...
+# Subtest: matchesKey
+    # Subtest: Kitty protocol with alternate keys (non-Latin layouts)
+        # Subtest: should match Ctrl+c when pressing Ctrl+С (Cyrillic) with base layout key
+        ok 1 - should match Ctrl+c when pressing Ctrl+С (Cyrillic) with base layout key
+          ---
+          duration_ms: 0.761833
+          ...
+        # Subtest: should match Ctrl+d when pressing Ctrl+В (Cyrillic) with base layout key
+        ok 2 - should match Ctrl+d when pressing Ctrl+В (Cyrillic) with base layout key
+          ---
+          duration_ms: 0.098917
+          ...
+        # Subtest: should match Ctrl+z when pressing Ctrl+Я (Cyrillic) with base layout key
+        ok 3 - should match Ctrl+z when pressing Ctrl+Я (Cyrillic) with base layout key
+          ---
+          duration_ms: 0.049333
+          ...
+        # Subtest: should match Ctrl+Shift+p with base layout key
+        ok 4 - should match Ctrl+Shift+p with base layout key
+          ---
+          duration_ms: 1.470875
+          ...
+        # Subtest: should still match direct codepoint when no base layout key
+        ok 5 - should still match direct codepoint when no base layout key
+          ---
+          duration_ms: 0.099333
+          ...
+        # Subtest: should handle shifted key in format
+        ok 6 - should handle shifted key in format
+          ---
+          duration_ms: 0.065167
+          ...
+        # Subtest: should handle event type in format
+        ok 7 - should handle event type in format
+          ---
+          duration_ms: 0.133292
+          ...
+        # Subtest: should handle full format with shifted key, base key, and event type
+        ok 8 - should handle full format with shifted key, base key, and event type
+          ---
+          duration_ms: 0.0535
+          ...
+        # Subtest: should not match wrong key even with base layout
+        ok 9 - should not match wrong key even with base layout
+          ---
+          duration_ms: 0.103417
+          ...
+        # Subtest: should not match wrong modifiers even with base layout
+        ok 10 - should not match wrong modifiers even with base layout
+          ---
+          duration_ms: 0.159375
+          ...
+        1..10
+    ok 1 - Kitty protocol with alternate keys (non-Latin layouts)
+      ---
+      duration_ms: 3.412917
+      type: 'suite'
+      ...
+    # Subtest: Legacy key matching
+        # Subtest: should match legacy Ctrl+c
+        ok 1 - should match legacy Ctrl+c
+          ---
+          duration_ms: 0.131375
+          ...
+        # Subtest: should match legacy Ctrl+d
+        ok 2 - should match legacy Ctrl+d
+          ---
+          duration_ms: 0.042208
+          ...
+        # Subtest: should match escape key
+        ok 3 - should match escape key
+          ---
+          duration_ms: 0.043375
+          ...
+        # Subtest: should match legacy linefeed as enter
+        ok 4 - should match legacy linefeed as enter
+          ---
+          duration_ms: 0.173209
+          ...
+        # Subtest: should treat linefeed as shift+enter when kitty active
+        ok 5 - should treat linefeed as shift+enter when kitty active
+          ---
+          duration_ms: 0.334083
+          ...
+        # Subtest: should parse ctrl+space
+        ok 6 - should parse ctrl+space
+          ---
+          duration_ms: 0.138041
+          ...
+        # Subtest: should parse legacy alt-prefixed sequences when kitty inactive
+        ok 7 - should parse legacy alt-prefixed sequences when kitty inactive
+          ---
+          duration_ms: 0.381834
+          ...
+        # Subtest: should match arrow keys
+        ok 8 - should match arrow keys
+          ---
+          duration_ms: 0.325958
+          ...
+        # Subtest: should match SS3 arrows and home/end
+        ok 9 - should match SS3 arrows and home/end
+          ---
+          duration_ms: 0.134
+          ...
+        # Subtest: should match legacy function keys and clear
+        ok 10 - should match legacy function keys and clear
+          ---
+          duration_ms: 0.102209
+          ...
+        # Subtest: should match alt+arrows
+        ok 11 - should match alt+arrows
+          ---
+          duration_ms: 0.098417
+          ...
+        # Subtest: should match rxvt modifier sequences
+        ok 12 - should match rxvt modifier sequences
+          ---
+          duration_ms: 0.120375
+          ...
+        1..12
+    ok 2 - Legacy key matching
+      ---
+      duration_ms: 2.317208
+      type: 'suite'
+      ...
+    1..2
+ok 6 - matchesKey
+  ---
+  duration_ms: 5.982625
+  type: 'suite'
+  ...
+# Subtest: parseKey
+    # Subtest: Kitty protocol with alternate keys
+        # Subtest: should return Latin key name when base layout key is present
+        ok 1 - should return Latin key name when base layout key is present
+          ---
+          duration_ms: 0.237666
+          ...
+        # Subtest: should return key name from codepoint when no base layout
+        ok 2 - should return key name from codepoint when no base layout
+          ---
+          duration_ms: 0.192583
+          ...
+        1..2
+    ok 1 - Kitty protocol with alternate keys
+      ---
+      duration_ms: 0.673875
+      type: 'suite'
+      ...
+    # Subtest: Legacy key parsing
+        # Subtest: should parse legacy Ctrl+letter
+        ok 1 - should parse legacy Ctrl+letter
+          ---
+          duration_ms: 0.114583
+          ...
+        # Subtest: should parse special keys
+        ok 2 - should parse special keys
+          ---
+          duration_ms: 0.247084
+          ...
+        # Subtest: should parse arrow keys
+        ok 3 - should parse arrow keys
+          ---
+          duration_ms: 0.216583
+          ...
+        # Subtest: should parse SS3 arrows and home/end
+        ok 4 - should parse SS3 arrows and home/end
+          ---
+          duration_ms: 0.199667
+          ...
+        # Subtest: should parse legacy function and modifier sequences
+        ok 5 - should parse legacy function and modifier sequences
+          ---
+          duration_ms: 0.082208
+          ...
+        # Subtest: should parse double bracket pageUp
+        ok 6 - should parse double bracket pageUp
+          ---
+          duration_ms: 0.050833
+          ...
+        1..6
+    ok 2 - Legacy key parsing
+      ---
+      duration_ms: 1.083959
+      type: 'suite'
+      ...
+    1..2
+ok 7 - parseKey
+  ---
+  duration_ms: 1.89375
+  type: 'suite'
+  ...
+# Subtest: Markdown component
+    # Subtest: Nested lists
+        # Subtest: should render simple nested list
+        ok 1 - should render simple nested list
+          ---
+          duration_ms: 7.46525
+          ...
+        # Subtest: should render deeply nested list
+        ok 2 - should render deeply nested list
+          ---
+          duration_ms: 0.395583
+          ...
+        # Subtest: should render ordered nested list
+        ok 3 - should render ordered nested list
+          ---
+          duration_ms: 0.688917
+          ...
+        # Subtest: should render mixed ordered and unordered nested lists
+        ok 4 - should render mixed ordered and unordered nested lists
+          ---
+          duration_ms: 0.881708
+          ...
+        # Subtest: should maintain numbering when code blocks are not indented (LLM output)
+        ok 5 - should maintain numbering when code blocks are not indented (LLM output)
+          ---
+          duration_ms: 0.430208
+          ...
+        1..5
+    ok 1 - Nested lists
+      ---
+      duration_ms: 10.184459
+      type: 'suite'
+      ...
+    # Subtest: Tables
+        # Subtest: should render simple table
+        ok 1 - should render simple table
+          ---
+          duration_ms: 1.105584
+          ...
+        # Subtest: should render table with alignment
+        ok 2 - should render table with alignment
+          ---
+          duration_ms: 0.431917
+          ...
+        # Subtest: should handle tables with varying column widths
+        ok 3 - should handle tables with varying column widths
+          ---
+          duration_ms: 0.526333
+          ...
+        # Subtest: should wrap table cells when table exceeds available width
+        ok 4 - should wrap table cells when table exceeds available width
+          ---
+          duration_ms: 0.716583
+          ...
+        # Subtest: should wrap long cell content to multiple lines
+        ok 5 - should wrap long cell content to multiple lines
+          ---
+          duration_ms: 0.360875
+          ...
+        # Subtest: should wrap long unbroken tokens inside table cells (not only at line start)
+        ok 6 - should wrap long unbroken tokens inside table cells (not only at line start)
+          ---
+          duration_ms: 1.026792
+          ...
+        # Subtest: should wrap styled inline code inside table cells without breaking borders
+        ok 7 - should wrap styled inline code inside table cells without breaking borders
+          ---
+          duration_ms: 0.302875
+          ...
+        # Subtest: should handle extremely narrow width gracefully
+        ok 8 - should handle extremely narrow width gracefully
+          ---
+          duration_ms: 0.164625
+          ...
+        # Subtest: should render table correctly when it fits naturally
+        ok 9 - should render table correctly when it fits naturally
+          ---
+          duration_ms: 0.148667
+          ...
+        # Subtest: should respect paddingX when calculating table width
+        ok 10 - should respect paddingX when calculating table width
+          ---
+          duration_ms: 0.261125
+          ...
+        1..10
+    ok 2 - Tables
+      ---
+      duration_ms: 5.228625
+      type: 'suite'
+      ...
+    # Subtest: Combined features
+        # Subtest: should render lists and tables together
+        ok 1 - should render lists and tables together
+          ---
+          duration_ms: 0.272625
+          ...
+        1..1
+    ok 3 - Combined features
+      ---
+      duration_ms: 0.31475
+      type: 'suite'
+      ...
+    # Subtest: Pre-styled text (thinking traces)
+        # Subtest: should preserve gray italic styling after inline code
+        ok 1 - should preserve gray italic styling after inline code
+          ---
+          duration_ms: 1.054958
+          ...
+        # Subtest: should preserve gray italic styling after bold text
+        ok 2 - should preserve gray italic styling after bold text
+          ---
+          duration_ms: 2.331625
+          ...
+        # Subtest: should not leak styles into following lines when rendered in TUI
+        ok 3 - should not leak styles into following lines when rendered in TUI
+          ---
+          duration_ms: 8.264459
+          ...
+        1..3
+    ok 4 - Pre-styled text (thinking traces)
+      ---
+      duration_ms: 11.733917
+      type: 'suite'
+      ...
+    # Subtest: Spacing after code blocks
+        # Subtest: should have only one blank line between code block and following paragraph
+        ok 1 - should have only one blank line between code block and following paragraph
+          ---
+          duration_ms: 0.744916
+          ...
+        1..1
+    ok 5 - Spacing after code blocks
+      ---
+      duration_ms: 0.792208
+      type: 'suite'
+      ...
+    # Subtest: Spacing after dividers
+        # Subtest: should have only one blank line between divider and following paragraph
+        ok 1 - should have only one blank line between divider and following paragraph
+          ---
+          duration_ms: 0.189541
+          ...
+        1..1
+    ok 6 - Spacing after dividers
+      ---
+      duration_ms: 0.225459
+      type: 'suite'
+      ...
+    # Subtest: Spacing after headings
+        # Subtest: should have only one blank line between heading and following paragraph
+        ok 1 - should have only one blank line between heading and following paragraph
+          ---
+          duration_ms: 0.176333
+          ...
+        1..1
+    ok 7 - Spacing after headings
+      ---
+      duration_ms: 0.202041
+      type: 'suite'
+      ...
+    # Subtest: Spacing after blockquotes
+        # Subtest: should have only one blank line between blockquote and following paragraph
+        ok 1 - should have only one blank line between blockquote and following paragraph
+          ---
+          duration_ms: 0.228208
+          ...
+        1..1
+    ok 8 - Spacing after blockquotes
+      ---
+      duration_ms: 0.275083
+      type: 'suite'
+      ...
+    # Subtest: HTML-like tags in text
+        # Subtest: should render content with HTML-like tags as text
+        ok 1 - should render content with HTML-like tags as text
+          ---
+          duration_ms: 0.238833
+          ...
+        # Subtest: should render HTML tags in code blocks correctly
+        ok 2 - should render HTML tags in code blocks correctly
+          ---
+          duration_ms: 0.117708
+          ...
+        1..2
+    ok 9 - HTML-like tags in text
+      ---
+      duration_ms: 0.397209
+      type: 'suite'
+      ...
+    1..9
+ok 8 - Markdown component
+  ---
+  duration_ms: 29.880375
+  type: 'suite'
+  ...
+# Subtest: TUI overlay options
+    # Subtest: width overflow protection
+        # Subtest: should truncate overlay lines that exceed declared width
+        ok 1 - should truncate overlay lines that exceed declared width
+          ---
+          duration_ms: 8.630709
+          ...
+        # Subtest: should handle overlay with complex ANSI sequences without crashing
+        ok 2 - should handle overlay with complex ANSI sequences without crashing
+          ---
+          duration_ms: 2.811917
+          ...
+        # Subtest: should handle overlay composited on styled base content
+        ok 3 - should handle overlay composited on styled base content
+          ---
+          duration_ms: 1.570833
+          ...
+        # Subtest: should handle wide characters at overlay boundary
+        ok 4 - should handle wide characters at overlay boundary
+          ---
+          duration_ms: 2.866917
+          ...
+        # Subtest: should handle overlay positioned at terminal edge
+        ok 5 - should handle overlay positioned at terminal edge
+          ---
+          duration_ms: 1.02825
+          ...
+        # Subtest: should handle overlay on base content with OSC sequences
+        ok 6 - should handle overlay on base content with OSC sequences
+          ---
+          duration_ms: 1.044292
+          ...
+        1..6
+    ok 1 - width overflow protection
+      ---
+      duration_ms: 18.543458
+      type: 'suite'
+      ...
+    # Subtest: width percentage
+        # Subtest: should render overlay at percentage of terminal width
+        ok 1 - should render overlay at percentage of terminal width
+          ---
+          duration_ms: 1.097417
+          ...
+        # Subtest: should respect minWidth when widthPercent results in smaller width
+        ok 2 - should respect minWidth when widthPercent results in smaller width
+          ---
+          duration_ms: 2.375
+          ...
+        1..2
+    ok 2 - width percentage
+      ---
+      duration_ms: 3.706625
+      type: 'suite'
+      ...
+    # Subtest: anchor positioning
+        # Subtest: should position overlay at top-left
+        ok 1 - should position overlay at top-left
+          ---
+          duration_ms: 2.755417
+          ...
+        # Subtest: should position overlay at bottom-right
+        ok 2 - should position overlay at bottom-right
+          ---
+          duration_ms: 2.180084
+          ...
+        # Subtest: should position overlay at top-center
+        ok 3 - should position overlay at top-center
+          ---
+          duration_ms: 1.108042
+          ...
+        1..3
+    ok 3 - anchor positioning
+      ---
+      duration_ms: 6.172458
+      type: 'suite'
+      ...
+    # Subtest: margin
+        # Subtest: should clamp negative margins to zero
+        ok 1 - should clamp negative margins to zero
+          ---
+          duration_ms: 0.7925
+          ...
+        # Subtest: should respect margin as number
+        ok 2 - should respect margin as number
+          ---
+          duration_ms: 2.003417
+          ...
+        # Subtest: should respect margin object
+        ok 3 - should respect margin object
+          ---
+          duration_ms: 1.830208
+          ...
+        1..3
+    ok 4 - margin
+      ---
+      duration_ms: 4.756375
+      type: 'suite'
+      ...
+    # Subtest: offset
+        # Subtest: should apply offsetX and offsetY from anchor position
+        ok 1 - should apply offsetX and offsetY from anchor position
+          ---
+          duration_ms: 1.362958
+          ...
+        1..1
+    ok 5 - offset
+      ---
+      duration_ms: 1.428292
+      type: 'suite'
+      ...
+    # Subtest: percentage positioning
+        # Subtest: should position with rowPercent and colPercent
+        ok 1 - should position with rowPercent and colPercent
+          ---
+          duration_ms: 2.323375
+          ...
+        # Subtest: rowPercent 0 should position at top
+        ok 2 - rowPercent 0 should position at top
+          ---
+          duration_ms: 1.8665
+          ...
+        # Subtest: rowPercent 100 should position at bottom
+        ok 3 - rowPercent 100 should position at bottom
+          ---
+          duration_ms: 1.912333
+          ...
+        1..3
+    ok 6 - percentage positioning
+      ---
+      duration_ms: 6.244583
+      type: 'suite'
+      ...
+    # Subtest: maxHeight
+        # Subtest: should truncate overlay to maxHeight
+        ok 1 - should truncate overlay to maxHeight
+          ---
+          duration_ms: 1.216083
+          ...
+        # Subtest: should truncate overlay to maxHeightPercent
+        ok 2 - should truncate overlay to maxHeightPercent
+          ---
+          duration_ms: 1.276792
+          ...
+        1..2
+    ok 7 - maxHeight
+      ---
+      duration_ms: 2.6865
+      type: 'suite'
+      ...
+    # Subtest: absolute positioning
+        # Subtest: row and col should override anchor
+        ok 1 - row and col should override anchor
+          ---
+          duration_ms: 1.88975
+          ...
+        1..1
+    ok 8 - absolute positioning
+      ---
+      duration_ms: 1.960458
+      type: 'suite'
+      ...
+    # Subtest: stacked overlays
+        # Subtest: should render multiple overlays with later ones on top
+        ok 1 - should render multiple overlays with later ones on top
+          ---
+          duration_ms: 1.585458
+          ...
+        # Subtest: should handle overlays at different positions without interference
+        ok 2 - should handle overlays at different positions without interference
+          ---
+          duration_ms: 0.748042
+          ...
+        # Subtest: should properly hide overlays in stack order
+        ok 3 - should properly hide overlays in stack order
+          ---
+          duration_ms: 2.993625
+          ...
+        1..3
+    ok 9 - stacked overlays
+      ---
+      duration_ms: 5.442291
+      type: 'suite'
+      ...
+    1..9
+ok 9 - TUI overlay options
+  ---
+  duration_ms: 51.490458
+  type: 'suite'
+  ...
+# Terminal rows: 24
+# Content lines: 3
+# Overlay visible: true
+# Subtest: TUI overlay with short content
+    # Subtest: should render overlay when content is shorter than terminal height
+    ok 1 - should render overlay when content is shorter than terminal height
+      ---
+      duration_ms: 6.828625
+      ...
+    1..1
+ok 10 - TUI overlay with short content
+  ---
+  duration_ms: 7.249583
+  type: 'suite'
+  ...
+# Subtest: SelectList
+    # Subtest: normalizes multiline descriptions to single line
+    ok 1 - normalizes multiline descriptions to single line
+      ---
+      duration_ms: 0.486792
+      ...
+    1..1
+ok 11 - SelectList
+  ---
+  duration_ms: 0.802166
+  type: 'suite'
+  ...
+# Subtest: StdinBuffer
+    # Subtest: Regular Characters
+        # Subtest: should pass through regular characters immediately
+        ok 1 - should pass through regular characters immediately
+          ---
+          duration_ms: 0.782834
+          ...
+        # Subtest: should pass through multiple regular characters
+        ok 2 - should pass through multiple regular characters
+          ---
+          duration_ms: 0.087541
+          ...
+        # Subtest: should handle unicode characters
+        ok 3 - should handle unicode characters
+          ---
+          duration_ms: 0.07975
+          ...
+        1..3
+    ok 1 - Regular Characters
+      ---
+      duration_ms: 1.2315
+      type: 'suite'
+      ...
+    # Subtest: Complete Escape Sequences
+        # Subtest: should pass through complete mouse SGR sequences
+        ok 1 - should pass through complete mouse SGR sequences
+          ---
+          duration_ms: 0.163792
+          ...
+        # Subtest: should pass through complete arrow key sequences
+        ok 2 - should pass through complete arrow key sequences
+          ---
+          duration_ms: 0.146958
+          ...
+        # Subtest: should pass through complete function key sequences
+        ok 3 - should pass through complete function key sequences
+          ---
+          duration_ms: 0.185209
+          ...
+        # Subtest: should pass through meta key sequences
+        ok 4 - should pass through meta key sequences
+          ---
+          duration_ms: 0.082959
+          ...
+        # Subtest: should pass through SS3 sequences
+        ok 5 - should pass through SS3 sequences
+          ---
+          duration_ms: 0.109833
+          ...
+        1..5
+    ok 2 - Complete Escape Sequences
+      ---
+      duration_ms: 0.805666
+      type: 'suite'
+      ...
+    # Subtest: Partial Escape Sequences
+        # Subtest: should buffer incomplete mouse SGR sequence
+        ok 1 - should buffer incomplete mouse SGR sequence
+          ---
+          duration_ms: 1.3435
+          ...
+        # Subtest: should buffer incomplete CSI sequence
+        ok 2 - should buffer incomplete CSI sequence
+          ---
+          duration_ms: 0.178541
+          ...
+        # Subtest: should buffer split across many chunks
+        ok 3 - should buffer split across many chunks
+          ---
+          duration_ms: 0.280334
+          ...
+        # Subtest: should flush incomplete sequence after timeout
+        ok 4 - should flush incomplete sequence after timeout
+          ---
+          duration_ms: 36.509875
+          ...
+        1..4
+    ok 3 - Partial Escape Sequences
+      ---
+      duration_ms: 40.578167
+      type: 'suite'
+      ...
+    # Subtest: Mixed Content
+        # Subtest: should handle characters followed by escape sequence
+        ok 1 - should handle characters followed by escape sequence
+          ---
+          duration_ms: 0.359208
+          ...
+        # Subtest: should handle escape sequence followed by characters
+        ok 2 - should handle escape sequence followed by characters
+          ---
+          duration_ms: 0.323541
+          ...
+        # Subtest: should handle multiple complete sequences
+        ok 3 - should handle multiple complete sequences
+          ---
+          duration_ms: 1.87675
+          ...
+        # Subtest: should handle partial sequence with preceding characters
+        ok 4 - should handle partial sequence with preceding characters
+          ---
+          duration_ms: 0.268125
+          ...
+        1..4
+    ok 4 - Mixed Content
+      ---
+      duration_ms: 2.96925
+      type: 'suite'
+      ...
+    # Subtest: Kitty Keyboard Protocol
+        # Subtest: should handle Kitty CSI u press events
+        ok 1 - should handle Kitty CSI u press events
+          ---
+          duration_ms: 0.424084
+          ...
+        # Subtest: should handle Kitty CSI u release events
+        ok 2 - should handle Kitty CSI u release events
+          ---
+          duration_ms: 0.255542
+          ...
+        # Subtest: should handle batched Kitty press and release
+        ok 3 - should handle batched Kitty press and release
+          ---
+          duration_ms: 0.227042
+          ...
+        # Subtest: should handle multiple batched Kitty events
+        ok 4 - should handle multiple batched Kitty events
+          ---
+          duration_ms: 0.113917
+          ...
+        # Subtest: should handle Kitty arrow keys with event type
+        ok 5 - should handle Kitty arrow keys with event type
+          ---
+          duration_ms: 0.069959
+          ...
+        # Subtest: should handle Kitty functional keys with event type
+        ok 6 - should handle Kitty functional keys with event type
+          ---
+          duration_ms: 0.051375
+          ...
+        # Subtest: should handle plain characters mixed with Kitty sequences
+        ok 7 - should handle plain characters mixed with Kitty sequences
+          ---
+          duration_ms: 0.0545
+          ...
+        # Subtest: should handle Kitty sequence followed by plain characters
+        ok 8 - should handle Kitty sequence followed by plain characters
+          ---
+          duration_ms: 0.042834
+          ...
+        # Subtest: should handle rapid typing simulation with Kitty protocol
+        ok 9 - should handle rapid typing simulation with Kitty protocol
+          ---
+          duration_ms: 0.047
+          ...
+        1..9
+    ok 5 - Kitty Keyboard Protocol
+      ---
+      duration_ms: 1.451208
+      type: 'suite'
+      ...
+    # Subtest: Mouse Events
+        # Subtest: should handle mouse press event
+        ok 1 - should handle mouse press event
+          ---
+          duration_ms: 0.169959
+          ...
+        # Subtest: should handle mouse release event
+        ok 2 - should handle mouse release event
+          ---
+          duration_ms: 0.064375
+          ...
+        # Subtest: should handle mouse move event
+        ok 3 - should handle mouse move event
+          ---
+          duration_ms: 0.050083
+          ...
+        # Subtest: should handle split mouse events
+        ok 4 - should handle split mouse events
+          ---
+          duration_ms: 0.079375
+          ...
+        # Subtest: should handle multiple mouse events
+        ok 5 - should handle multiple mouse events
+          ---
+          duration_ms: 0.049417
+          ...
+        # Subtest: should handle old-style mouse sequence (ESC[M + 3 bytes)
+        ok 6 - should handle old-style mouse sequence (ESC[M + 3 bytes)
+          ---
+          duration_ms: 0.041916
+          ...
+        # Subtest: should buffer incomplete old-style mouse sequence
+        ok 7 - should buffer incomplete old-style mouse sequence
+          ---
+          duration_ms: 0.066625
+          ...
+        1..7
+    ok 6 - Mouse Events
+      ---
+      duration_ms: 0.622542
+      type: 'suite'
+      ...
+    # Subtest: Edge Cases
+        # Subtest: should handle empty input
+        ok 1 - should handle empty input
+          ---
+          duration_ms: 0.057625
+          ...
+        # Subtest: should handle lone escape character with timeout
+        ok 2 - should handle lone escape character with timeout
+          ---
+          duration_ms: 19.225917
+          ...
+        # Subtest: should handle lone escape character with explicit flush
+        ok 3 - should handle lone escape character with explicit flush
+          ---
+          duration_ms: 0.111875
+          ...
+        # Subtest: should handle buffer input
+        ok 4 - should handle buffer input
+          ---
+          duration_ms: 0.059125
+          ...
+        # Subtest: should handle very long sequences
+        ok 5 - should handle very long sequences
+          ---
+          duration_ms: 0.07675
+          ...
+        1..5
+    ok 7 - Edge Cases
+      ---
+      duration_ms: 19.5995
+      type: 'suite'
+      ...
+    # Subtest: Flush
+        # Subtest: should flush incomplete sequences
+        ok 1 - should flush incomplete sequences
+          ---
+          duration_ms: 0.348167
+          ...
+        # Subtest: should return empty array if nothing to flush
+        ok 2 - should return empty array if nothing to flush
+          ---
+          duration_ms: 0.13525
+          ...
+        # Subtest: should emit flushed data via timeout
+        ok 3 - should emit flushed data via timeout
+          ---
+          duration_ms: 16.023458
+          ...
+        1..3
+    ok 8 - Flush
+      ---
+      duration_ms: 16.677292
+      type: 'suite'
+      ...
+    # Subtest: Clear
+        # Subtest: should clear buffered content without emitting
+        ok 1 - should clear buffered content without emitting
+          ---
+          duration_ms: 0.248584
+          ...
+        1..1
+    ok 9 - Clear
+      ---
+      duration_ms: 0.330625
+      type: 'suite'
+      ...
+    # Subtest: Bracketed Paste
+        # Subtest: should emit paste event for complete bracketed paste
+        ok 1 - should emit paste event for complete bracketed paste
+          ---
+          duration_ms: 0.285459
+          ...
+        # Subtest: should handle paste arriving in chunks
+        ok 2 - should handle paste arriving in chunks
+          ---
+          duration_ms: 0.075125
+          ...
+        # Subtest: should handle paste with input before and after
+        ok 3 - should handle paste with input before and after
+          ---
+          duration_ms: 0.065333
+          ...
+        # Subtest: should handle paste with newlines
+        ok 4 - should handle paste with newlines
+          ---
+          duration_ms: 0.05125
+          ...
+        # Subtest: should handle paste with unicode
+        ok 5 - should handle paste with unicode
+          ---
+          duration_ms: 0.081667
+          ...
+        1..5
+    ok 10 - Bracketed Paste
+      ---
+      duration_ms: 0.634708
+      type: 'suite'
+      ...
+    # Subtest: Destroy
+        # Subtest: should clear buffer on destroy
+        ok 1 - should clear buffer on destroy
+          ---
+          duration_ms: 0.098125
+          ...
+        # Subtest: should clear pending timeouts on destroy
+        ok 2 - should clear pending timeouts on destroy
+          ---
+          duration_ms: 15.858458
+          ...
+        1..2
+    ok 11 - Destroy
+      ---
+      duration_ms: 16.076792
+      type: 'suite'
+      ...
+    1..11
+ok 12 - StdinBuffer
+  ---
+  duration_ms: 109.383458
+  type: 'suite'
+  ...
+# Subtest: TruncatedText component
+    # Subtest: pads output lines to exactly match width
+    ok 1 - pads output lines to exactly match width
+      ---
+      duration_ms: 1.0775
+      ...
+    # Subtest: pads output with vertical padding lines to width
+    ok 2 - pads output with vertical padding lines to width
+      ---
+      duration_ms: 0.184917
+      ...
+    # Subtest: truncates long text and pads to width
+    ok 3 - truncates long text and pads to width
+      ---
+      duration_ms: 1.74425
+      ...
+    # Subtest: preserves ANSI codes in output and pads correctly
+    ok 4 - preserves ANSI codes in output and pads correctly
+      ---
+      duration_ms: 0.26025
+      ...
+    # Subtest: truncates styled text and adds reset code before ellipsis
+    ok 5 - truncates styled text and adds reset code before ellipsis
+      ---
+      duration_ms: 0.328209
+      ...
+    # Subtest: handles text that fits exactly
+    ok 6 - handles text that fits exactly
+      ---
+      duration_ms: 0.217625
+      ...
+    # Subtest: handles empty text
+    ok 7 - handles empty text
+      ---
+      duration_ms: 0.124459
+      ...
+    # Subtest: stops at newline and only shows first line
+    ok 8 - stops at newline and only shows first line
+      ---
+      duration_ms: 0.18725
+      ...
+    # Subtest: truncates first line even with newlines in text
+    ok 9 - truncates first line even with newlines in text
+      ---
+      duration_ms: 0.228666
+      ...
+    1..9
+ok 13 - TruncatedText component
+  ---
+  duration_ms: 5.433583
+  type: 'suite'
+  ...
+# Subtest: TUI overlay compositing
+    # Subtest: should not leak styles when a trailing reset sits beyond the last visible column (no overlay)
+    ok 1 - should not leak styles when a trailing reset sits beyond the last visible column (no overlay)
+      ---
+      duration_ms: 5.077625
+      ...
+    # Subtest: should not leak styles when overlay slicing drops trailing SGR resets
+    ok 2 - should not leak styles when overlay slicing drops trailing SGR resets
+      ---
+      duration_ms: 3.802709
+      ...
+    1..2
+ok 14 - TUI overlay compositing
+  ---
+  duration_ms: 9.317208
+  type: 'suite'
+  ...
+# Subtest: TUI differential rendering
+    # Subtest: tracks cursor correctly when content shrinks with unchanged remaining lines
+    ok 1 - tracks cursor correctly when content shrinks with unchanged remaining lines
+      ---
+      duration_ms: 9.766584
+      ...
+    # Subtest: renders correctly when only a middle line changes (spinner case)
+    ok 2 - renders correctly when only a middle line changes (spinner case)
+      ---
+      duration_ms: 6.997458
+      ...
+    # Subtest: resets styles after each rendered line
+    ok 3 - resets styles after each rendered line
+      ---
+      duration_ms: 2.420125
+      ...
+    # Subtest: renders correctly when first line changes but rest stays same
+    ok 4 - renders correctly when first line changes but rest stays same
+      ---
+      duration_ms: 3.579292
+      ...
+    # Subtest: renders correctly when last line changes but rest stays same
+    ok 5 - renders correctly when last line changes but rest stays same
+      ---
+      duration_ms: 2.431166
+      ...
+    # Subtest: renders correctly when multiple non-adjacent lines change
+    ok 6 - renders correctly when multiple non-adjacent lines change
+      ---
+      duration_ms: 2.019334
+      ...
+    # Subtest: handles transition from content to empty and back to content
+    ok 7 - handles transition from content to empty and back to content
+      ---
+      duration_ms: 3.257458
+      ...
+    1..7
+ok 15 - TUI differential rendering
+  ---
+  duration_ms: 31.075667
+  type: 'suite'
+  ...
+# Subtest: wrapTextWithAnsi
+    # Subtest: underline styling
+        # Subtest: should not apply underline style before the styled text
+        ok 1 - should not apply underline style before the styled text
+          ---
+          duration_ms: 2.729709
+          ...
+        # Subtest: should not have whitespace before underline reset code
+        ok 2 - should not have whitespace before underline reset code
+          ---
+          duration_ms: 0.188875
+          ...
+        # Subtest: should not bleed underline to padding - each line should end with reset for underline only
+        ok 3 - should not bleed underline to padding - each line should end with reset for underline only
+          ---
+          duration_ms: 0.257792
+          ...
+        1..3
+    ok 1 - underline styling
+      ---
+      duration_ms: 3.639875
+      type: 'suite'
+      ...
+    # Subtest: background color preservation
+        # Subtest: should preserve background color across wrapped lines without full reset
+        ok 1 - should preserve background color across wrapped lines without full reset
+          ---
+          duration_ms: 0.177791
+          ...
+        # Subtest: should reset underline but preserve background when wrapping underlined text inside background
+        ok 2 - should reset underline but preserve background when wrapping underlined text inside background
+          ---
+          duration_ms: 0.1885
+          ...
+        1..2
+    ok 2 - background color preservation
+      ---
+      duration_ms: 0.461917
+      type: 'suite'
+      ...
+    # Subtest: basic wrapping
+        # Subtest: should wrap plain text correctly
+        ok 1 - should wrap plain text correctly
+          ---
+          duration_ms: 0.134125
+          ...
+        # Subtest: should truncate trailing whitespace that exceeds width
+        ok 2 - should truncate trailing whitespace that exceeds width
+          ---
+          duration_ms: 0.041625
+          ...
+        # Subtest: should preserve color codes across wraps
+        ok 3 - should preserve color codes across wraps
+          ---
+          duration_ms: 0.13675
+          ...
+        1..3
+    ok 3 - basic wrapping
+      ---
+      duration_ms: 0.395833
+      type: 'suite'
+      ...
+    1..3
+ok 16 - wrapTextWithAnsi
+  ---
+  duration_ms: 4.774375
+  type: 'suite'
+  ...
+1..16
+# tests 233
+# suites 60
+# pass 233
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 348.774417
+Restored auth.json

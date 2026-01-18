@@ -71,6 +71,8 @@ export type AgentSessionEvent =
 			willRetry: boolean;
 			errorMessage?: string;
 	  }
+	| { type: "manual_compaction_start"; source: "command" | "queued" }
+	| { type: "manual_compaction_end"; source: "command" | "queued"; success: boolean; error?: string }
 	| { type: "auto_retry_start"; attempt: number; maxAttempts: number; delayMs: number; errorMessage: string }
 	| { type: "auto_retry_end"; success: boolean; attempt: number; finalError?: string };
 
@@ -179,6 +181,12 @@ export class AgentSession {
 	// Compaction state
 	private _compactionAbortController: AbortController | undefined = undefined;
 	private _autoCompactionAbortController: AbortController | undefined = undefined;
+	private _queuedCompactions: Array<{
+		customInstructions?: string;
+		resolve: (result: CompactionResult) => void;
+		reject: (error: unknown) => void;
+	}> = [];
+	private _flushingQueuedCompactions = false;
 
 	// Branch summarization state
 	private _branchSummaryAbortController: AbortController | undefined = undefined;
@@ -306,28 +314,43 @@ export class AgentSession {
 			}
 		}
 
-		// Check auto-retry and auto-compaction after agent completes
-		if (event.type === "agent_end" && this._lastAssistantMessage) {
-			const msg = this._lastAssistantMessage;
+		// Check auto-retry, manual queued compaction, and auto-compaction after agent completes.
+		if (event.type === "agent_end") {
+			// Prefer the last assistant message observed via message_end, but fall back to scanning agent state.
+			// This makes queued compaction robust even if message_end events were missed or reordered.
+			const msg = this._lastAssistantMessage ?? this._findLastAssistantMessage();
 			this._lastAssistantMessage = undefined;
 
-			// Check for retryable errors first (overloaded, rate limit, server errors)
-			if (this._isRetryableError(msg)) {
-				const didRetry = await this._handleRetryableError(msg);
-				if (didRetry) return; // Retry was initiated, don't proceed to compaction
-			} else if (this._retryAttempt > 0) {
-				// Previous retry succeeded - emit success event and reset counter
-				this._emit({
-					type: "auto_retry_end",
-					success: true,
-					attempt: this._retryAttempt,
-				});
-				this._retryAttempt = 0;
-				// Resolve the retry promise so waitForRetry() completes
-				this._resolveRetry();
+			if (msg) {
+				// Check for retryable errors first (overloaded, rate limit, server errors)
+				if (this._isRetryableError(msg)) {
+					const didRetry = await this._handleRetryableError(msg);
+					if (didRetry) return; // Retry was initiated, don't proceed to compaction
+				} else if (this._retryAttempt > 0) {
+					// Previous retry succeeded - emit success event and reset counter
+					this._emit({
+						type: "auto_retry_end",
+						success: true,
+						attempt: this._retryAttempt,
+					});
+					this._retryAttempt = 0;
+					// Resolve the retry promise so waitForRetry() completes
+					this._resolveRetry();
+				}
 			}
 
-			await this._checkCompaction(msg);
+			// Manual compaction was queued (e.g. /compact during streaming). Skip auto-compaction
+			// and run manual compaction between turns instead.
+			if (this._queuedCompactions.length > 0) {
+				queueMicrotask(() => {
+					void this._flushQueuedCompactions();
+				});
+				return;
+			}
+
+			if (msg) {
+				await this._checkCompaction(msg);
+			}
 		}
 	};
 
@@ -511,6 +534,11 @@ export class AgentSession {
 	/** Whether auto-compaction is currently running */
 	get isCompacting(): boolean {
 		return this._autoCompactionAbortController !== undefined || this._compactionAbortController !== undefined;
+	}
+
+	/** Number of queued manual compactions (e.g. /compact while streaming) */
+	get queuedCompactionCount(): number {
+		return this._queuedCompactions.length;
 	}
 
 	/** All messages including custom types like BashExecutionMessage */
@@ -1244,15 +1272,79 @@ export class AgentSession {
 	// =========================================================================
 
 	/**
+	 * Queue a manual compaction.
+	 * - If idle, compacts immediately.
+	 * - If streaming, pauses after the current turn and compacts before continuing queued messages.
+	 */
+	queueCompaction(customInstructions?: string): Promise<CompactionResult> {
+		if (!this.isStreaming) {
+			return this.compact(customInstructions);
+		}
+
+		// Pause after current turn so we can compact between turns (before processing follow-ups).
+		this.agent.requestPauseAfterTurn();
+
+		const promise = new Promise<CompactionResult>((resolve, reject) => {
+			this._queuedCompactions.push({ customInstructions, resolve, reject });
+		});
+
+		// Also flush when the agent becomes fully idle (robust against missed/early agent_end handling).
+		void this.agent
+			.waitForIdle()
+			.then(() => this._flushQueuedCompactions())
+			.catch(() => {});
+
+		return promise;
+	}
+
+	private async _flushQueuedCompactions(): Promise<void> {
+		if (this._flushingQueuedCompactions) return;
+		if (this._queuedCompactions.length === 0) return;
+
+		this._flushingQueuedCompactions = true;
+
+		try {
+			while (this._queuedCompactions.length > 0) {
+				const queued = [...this._queuedCompactions];
+				this._queuedCompactions = [];
+
+				const customInstructions = queued
+					.map((q) => q.customInstructions)
+					.reverse()
+					.find((v) => (v?.trim() ?? "").length > 0);
+
+				try {
+					const result = await this.compact(customInstructions, "queued");
+					for (const q of queued) q.resolve(result);
+				} catch (error) {
+					for (const q of queued) q.reject(error);
+				}
+			}
+		} finally {
+			this._flushingQueuedCompactions = false;
+		}
+
+		// If we paused to compact between turns, resume processing queued messages.
+		if (this.agent.hasQueuedMessages()) {
+			setTimeout(() => {
+				this.agent.continueWithQueuedMessages().catch(() => {});
+			}, 0);
+		}
+	}
+
+	/**
 	 * Manually compact the session context.
 	 * Aborts current agent operation first.
 	 * @param customInstructions Optional instructions for the compaction summary
 	 */
-	async compact(customInstructions?: string): Promise<CompactionResult> {
+	async compact(customInstructions?: string, source: "command" | "queued" = "command"): Promise<CompactionResult> {
 		this._disconnectFromAgent();
 		await this.abort();
 		this._compactionAbortController = new AbortController();
 
+		this._emit({ type: "manual_compaction_start", source });
+		let success = false;
+		let errorMessage: string | undefined;
 		try {
 			if (!this.model) {
 				throw new Error("No model selected");
@@ -1346,14 +1438,25 @@ export class AgentSession {
 				});
 			}
 
-			return {
+			const result: CompactionResult = {
 				summary,
 				firstKeptEntryId,
 				tokensBefore,
 				details,
 			};
+			success = true;
+			return result;
+		} catch (error) {
+			errorMessage = error instanceof Error ? error.message : String(error);
+			throw error;
 		} finally {
 			this._compactionAbortController = undefined;
+			this._emit({
+				type: "manual_compaction_end",
+				source,
+				success,
+				error: success ? undefined : (errorMessage ?? "Compaction failed"),
+			});
 			this._reconnectToAgent();
 		}
 	}

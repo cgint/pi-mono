@@ -1,0 +1,28 @@
+direction: right
+
+Before: {
+  label: "Before (immediate abort)"
+
+  user: "User\n/compact"
+  handler: "TUI/RPC handler"
+  session: "AgentSession.compact()"
+  abort: "abort()\n(cancel in-flight task)"
+  compact: "Compaction\nruns immediately"
+
+  user -> handler -> session -> abort -> compact
+}
+
+Now: {
+  label: "Now (queued after turn)"
+
+  user: "User\n/compact"
+  handler: "TUI/RPC handler"
+  queue: "Queue\n(compaction pending)"
+  pause: "Pause after turn\n(do not pull queued messages)"
+  finish: "Current turn finishes"
+  compact: "Compaction runs"
+  resume: "Resume queued\nmessages"
+
+  user -> handler -> queue
+  queue -> pause -> finish -> compact -> resume
+}

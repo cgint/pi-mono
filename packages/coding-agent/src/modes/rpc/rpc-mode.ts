@@ -479,7 +479,7 @@ export async function runRpcMode(session: AgentSession): Promise<never> {
 			// =================================================================
 
 			case "compact": {
-				const result = await session.compact(command.customInstructions);
+				const result = await session.queueCompaction(command.customInstructions);
 				return success(id, "compact", result);
 			}
 

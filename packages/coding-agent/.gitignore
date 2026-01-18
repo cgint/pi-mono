@@ -1,1 +1,4 @@
 *.bun-build
+
+# Ignore Code Giant output directory
+.codegiant/

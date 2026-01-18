@@ -1,0 +1,11 @@
+
+> pi-monorepo@0.0.3 check
+> biome check --write . && tsgo --noEmit && npm run check -w @mariozechner/pi-web-ui
+
+Checked 402 files in 130ms. No fixes applied.
+
+> @mariozechner/pi-web-ui@0.45.7 check
+> biome check --write . && tsc --noEmit && cd example && biome check --write . && tsc --noEmit
+
+Checked 73 files in 21ms. No fixes applied.
+Checked 3 files in 6ms. No fixes applied.

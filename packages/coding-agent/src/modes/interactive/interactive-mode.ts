@@ -1545,6 +1545,16 @@ export class InteractiveMode {
 			if (text === "/compact" || text.startsWith("/compact ")) {
 				const customInstructions = text.startsWith("/compact ") ? text.slice(9).trim() : undefined;
 				this.editor.setText("");
+				if (this.session.isCompacting) {
+					this.showWarning("Already compacting");
+					return;
+				}
+				if (this.session.isStreaming) {
+					void this.session.queueCompaction(customInstructions);
+					this.updatePendingMessagesDisplay();
+					this.showStatus("Queued compaction for after current turn");
+					return;
+				}
 				await this.handleCompactCommand(customInstructions);
 				return;
 			}
@@ -1860,6 +1870,26 @@ export class InteractiveMode {
 				}
 				void this.flushCompactionQueue({ willRetry: event.willRetry });
 				this.ui.requestRender();
+				break;
+			}
+
+			case "manual_compaction_start": {
+				this.updatePendingMessagesDisplay();
+				if (event.source === "queued") {
+					this.showStatus("Compacting...");
+				}
+				break;
+			}
+
+			case "manual_compaction_end": {
+				this.updatePendingMessagesDisplay();
+				if (event.source === "queued") {
+					if (event.success) {
+						this.showStatus("Compaction finished");
+					} else {
+						this.showError(`Compaction failed: ${event.error ?? "Unknown error"}`);
+					}
+				}
 				break;
 			}
 
@@ -2372,8 +2402,22 @@ export class InteractiveMode {
 			...this.session.getFollowUpMessages(),
 			...this.compactionQueuedMessages.filter((msg) => msg.mode === "followUp").map((msg) => msg.text),
 		];
-		if (steeringMessages.length > 0 || followUpMessages.length > 0) {
+		const queuedCompactionCount = this.session.queuedCompactionCount;
+		if (
+			this.session.isCompacting ||
+			steeringMessages.length > 0 ||
+			followUpMessages.length > 0 ||
+			queuedCompactionCount > 0
+		) {
 			this.pendingMessagesContainer.addChild(new Spacer(1));
+			if (this.session.isCompacting) {
+				const text = theme.fg("dim", "Compaction: running");
+				this.pendingMessagesContainer.addChild(new TruncatedText(text, 1, 0));
+			}
+			if (queuedCompactionCount > 0) {
+				const text = theme.fg("dim", "Compaction: queued");
+				this.pendingMessagesContainer.addChild(new TruncatedText(text, 1, 0));
+			}
 			for (const message of steeringMessages) {
 				const text = theme.fg("dim", `Steering: ${message}`);
 				this.pendingMessagesContainer.addChild(new TruncatedText(text, 1, 0));

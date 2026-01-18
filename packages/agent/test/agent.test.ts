@@ -147,6 +147,45 @@ describe("Agent", () => {
 		expect(agent.state.messages).not.toContainEqual(message);
 	});
 
+	it("should pause after current turn and resume queued messages", async () => {
+		let callCount = 0;
+		const agent = new Agent({
+			streamFn: (_model, _context, _options) => {
+				const stream = new MockAssistantStream();
+				const callIndex = ++callCount;
+				queueMicrotask(() => {
+					stream.push({ type: "start", partial: createAssistantMessage("") });
+					setTimeout(() => {
+						stream.push({ type: "done", reason: "stop", message: createAssistantMessage(`ok-${callIndex}`) });
+					}, 10);
+				});
+				return stream;
+			},
+		});
+
+		agent.steer({ role: "user", content: "Steering message", timestamp: Date.now() });
+		agent.followUp({ role: "user", content: "Follow-up message", timestamp: Date.now() });
+
+		const promptPromise = agent.prompt("First message");
+		await new Promise((resolve) => setTimeout(resolve, 5));
+		expect(agent.state.isStreaming).toBe(true);
+
+		agent.requestPauseAfterTurn();
+
+		await promptPromise;
+		expect(agent.state.isStreaming).toBe(false);
+		expect(callCount).toBe(1);
+		expect(agent.hasQueuedMessages()).toBe(true);
+
+		await agent.continueWithQueuedMessages();
+		expect(callCount).toBe(2);
+		expect(agent.hasQueuedMessages()).toBe(true);
+
+		await agent.continueWithQueuedMessages();
+		expect(callCount).toBe(3);
+		expect(agent.hasQueuedMessages()).toBe(false);
+	});
+
 	it("should handle abort controller", () => {
 		const agent = new Agent();
 

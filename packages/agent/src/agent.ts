@@ -98,6 +98,7 @@ export class Agent {
 	private transformContext?: (messages: AgentMessage[], signal?: AbortSignal) => Promise<AgentMessage[]>;
 	private steeringQueue: AgentMessage[] = [];
 	private followUpQueue: AgentMessage[] = [];
+	private pauseAfterCurrentTurn = false;
 	private steeringMode: "all" | "one-at-a-time";
 	private followUpMode: "all" | "one-at-a-time";
 	public streamFn: StreamFn;
@@ -227,6 +228,63 @@ export class Agent {
 		this.followUpQueue = [];
 	}
 
+	/**
+	 * Prevents the current run from pulling follow-up messages after the current turn ends.
+	 * This is useful when the app needs to perform an out-of-band operation (e.g., compaction)
+	 * between turns and then resume processing queued messages.
+	 */
+	requestPauseAfterTurn() {
+		this.pauseAfterCurrentTurn = true;
+	}
+
+	hasQueuedMessages(): boolean {
+		return this.steeringQueue.length + this.followUpQueue.length > 0;
+	}
+
+	private _takeQueuedMessagesForNextRun(): AgentMessage[] {
+		if (this.steeringQueue.length > 0) {
+			if (this.steeringMode === "one-at-a-time") {
+				const first = this.steeringQueue[0];
+				this.steeringQueue = this.steeringQueue.slice(1);
+				return [first];
+			}
+			const steering = this.steeringQueue.slice();
+			this.steeringQueue = [];
+			return steering;
+		}
+
+		if (this.followUpQueue.length > 0) {
+			if (this.followUpMode === "one-at-a-time") {
+				const first = this.followUpQueue[0];
+				this.followUpQueue = this.followUpQueue.slice(1);
+				return [first];
+			}
+			const followUp = this.followUpQueue.slice();
+			this.followUpQueue = [];
+			return followUp;
+		}
+
+		return [];
+	}
+
+	/**
+	 * Continue processing queued steering/follow-up messages without requiring the last message
+	 * to be non-assistant. Intended for cases where the app paused the run after a completed turn.
+	 */
+	async continueWithQueuedMessages(): Promise<void> {
+		if (this._state.isStreaming) {
+			throw new Error("Agent is already processing. Wait for completion before continuing.");
+		}
+		if (this._state.messages.length === 0) throw new Error("No messages to continue from");
+
+		const prompts = this._takeQueuedMessagesForNextRun();
+		if (prompts.length === 0) return;
+
+		// Use a new loop with explicit user prompts. Using agentLoopContinue() would fail if the last
+		// context message is an assistant message (common after a completed turn).
+		await this._runLoop(prompts);
+	}
+
 	clearMessages() {
 		this._state.messages = [];
 	}
@@ -337,6 +395,9 @@ export class Agent {
 			transformContext: this.transformContext,
 			getApiKey: this.getApiKey,
 			getSteeringMessages: async () => {
+				if (this.pauseAfterCurrentTurn) {
+					return [];
+				}
 				if (this.steeringMode === "one-at-a-time") {
 					if (this.steeringQueue.length > 0) {
 						const first = this.steeringQueue[0];
@@ -351,6 +412,9 @@ export class Agent {
 				}
 			},
 			getFollowUpMessages: async () => {
+				if (this.pauseAfterCurrentTurn) {
+					return [];
+				}
 				if (this.followUpMode === "one-at-a-time") {
 					if (this.followUpQueue.length > 0) {
 						const first = this.followUpQueue[0];
@@ -462,6 +526,7 @@ export class Agent {
 			this._state.error = err?.message || String(err);
 			this.emit({ type: "agent_end", messages: [errorMsg] });
 		} finally {
+			this.pauseAfterCurrentTurn = false;
 			this._state.isStreaming = false;
 			this._state.streamMessage = null;
 			this._state.pendingToolCalls = new Set<string>();
